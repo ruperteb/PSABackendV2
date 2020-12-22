@@ -193,7 +193,7 @@ async function setPrimaryContact(parent, args, context, info) {
 }
 
 async function deleteProperty(parent, args, context, info) {
-  const property = await context.prisma.property.findOne({
+  const property = await context.prisma.property.findUnique({
     where: {
       propertyId: args.propertyId,
 
@@ -351,7 +351,7 @@ async function updatePremises(parent, args, context, info) {
 
 async function login(parent, args, context, info) {
   // 1
-  const user = await context.prisma.user.findOne({ where: { email: args.email } })
+  const user = await context.prisma.user.findUnique({ where: { email: args.email } })
   if (!user) {
     throw new Error('No such user found')
   }

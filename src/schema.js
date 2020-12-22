@@ -7,7 +7,10 @@ scalar DateTime
 type Query {
   
     properties: [Property],
-    premisesList: [Premises]
+    premisesList: [Premises],
+    singleProperty (
+      propertyId: Int!
+    ): Property!
 }
 
 type Mutation {
