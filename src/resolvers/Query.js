@@ -1,17 +1,17 @@
 
 
-  async function investors(parent, args, context, info) {
-    return context.prisma.investor.findMany()
+  async function properties(parent, args, context, info) {
+    return context.prisma.property.findMany()
     
   }
 
-  async function contacts(parent, args, context, info) {
-    return context.prisma.contact.findMany()
+  async function premisesList(parent, args, context, info) {
+    return context.prisma.premises.findMany()
     
   }
 
   module.exports = {
-    investors,
-    contacts,
+    properties,
+    premisesList,
    
   }

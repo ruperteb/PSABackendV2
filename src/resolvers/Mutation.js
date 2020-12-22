@@ -2,12 +2,27 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { APP_SECRET, getUserId } = require('../utils')
 
-async function postInvestor(parent, args, context, info) {
+async function postProperty(parent, args, context, info) {
   /* const userId = getUserId(context) */
 
-  const newInvestor = await context.prisma.investor.create({
+  const newProperty = await context.prisma.property.create({
     data: {
-      investorName: args.investorName,
+
+      propertyName:       args.propertyName,
+      address:            args.address,
+      suburb:             args.suburb,
+      coordinates:        args.coordinates,
+      earliestOccupation: args.earliestOccupation,
+      earliestExpiry:     args.earliestExpiry,
+      erfExtent:          args.erfExtent,
+      totalGLA:           args.totalGLA,
+      vacantArea:         args.vacantArea,
+      buildingType:       args.buildingType,
+      province:           args.province,
+      region:             args.region,
+      notes:              args.notes,
+
+      /* investorName: args.investorName,
       commercial: args.commercial,
       industrial: args.industrial,
       residential: args.residential,
@@ -23,12 +38,12 @@ async function postInvestor(parent, args, context, info) {
       unlisted: args.unlisted,
       private: args.private,
       bee: args.bee,
-      notes: args.notes,
+      notes: args.notes, */
 
     }
   })
   /*  context.pubsub.publish("NEW_LINK", newLink) */
-  console.log(newInvestor.id)
+  /* console.log(newInvestor.id)
 
   const newContact = await context.prisma.contact.create({
 
@@ -42,59 +57,39 @@ async function postInvestor(parent, args, context, info) {
 
       investorName: { connect: { id: newInvestor.id } },
     }
-  })
+  }) */
   /*  context.pubsub.publish("NEW_LINK", newLink) */
 
-  return newContact
+  /* return newContact */
 
 
-  return newInvestor
+  return newProperty
 
 }
 
-async function updateInvestor(parent, args, context, info) {
+async function updateProperty(parent, args, context, info) {
   /* const userId = getUserId(context) */
 
-  const updatedInvestor = await context.prisma.investor.update({
-    where: { id: args.investorId },
+  const updatedInvestor = await context.prisma.property.update({
+    where: { propertyId: args.propertyId },
     data: {
-      investorName: args.investorName,
-      commercial: args.commercial,
-      industrial: args.industrial,
-      residential: args.residential,
-      retail: args.retail,
-      hotel: args.hotel,
-      wc: args.wc,
-      gau: args.gau,
-      kzn: args.kzn,
-      allregions: args.allregions,
-      minInvest: args.minInvest,
-      maxInvest: args.maxInvest,
-      listed: args.listed,
-      unlisted: args.unlisted,
-      private: args.private,
-      bee: args.bee,
-      notes: args.notes,
-      contacts: {
-        update: [{
-          where: {
-            id: args.contactId
-          },
-          data: {
-            name: args.contactName,
-            position: args.contactPosition,
-            officeNo: args.contactOfficeNo,
-            mobileNo: args.contactMobileNo,
-            email: args.contactEmail,
-          }
-        }]
-      }
+
+      propertyName:       args.propertyName,
+      address:            args.address,
+      suburb:             args.suburb,
+      coordinates:        args.coordinates,
+      earliestOccupation: args.earliestOccupation,
+      earliestExpiry:     args.earliestExpiry,
+      erfExtent:          args.erfExtent,
+      totalGLA:           args.totalGLA,
+      vacantArea:         args.vacantArea,
+      buildingType:       args.buildingType,
+      province:           args.province,
+      region:             args.region,
+      notes:              args.notes,
 
     }
   })
-
-
-
 
   return updatedInvestor
 
@@ -197,35 +192,35 @@ async function setPrimaryContact(parent, args, context, info) {
 
 }
 
-async function deleteInvestor(parent, args, context, info) {
-  const investor = await context.prisma.investor.findOne({
+async function deleteProperty(parent, args, context, info) {
+  const property = await context.prisma.property.findOne({
     where: {
-      id: args.investorId,
+      propertyId: args.propertyId,
 
     },
     select: {
-      id: true,
-      investorName: true,
-      contacts: {
+      propertyId: true,
+      propertyName: true,
+      premisesList: {
         include: {
-          investorName: true,
+          propertyName: true,
         },
       },
     },
   })
 
-  console.log(investor)
+  console.log(property)
   const delArray = []
-  const delMap = await investor.contacts.map((contact, index) => {
-    console.log(contact.id)
-    delArray[index] = { id: contact.id }
+  const delMap = await property.premisesList.map((premises, index) => {
+    console.log(premises.premisesId)
+    delArray[index] = { premisesId: premises.premisesId }
   })
 
   console.log(delArray)
-  const contactDel = await context.prisma.investor.update({
-    where: { id: args.investorId },
+  const premisesDel = await context.prisma.property.update({
+    where: { propertyId: args.propertyId },
     data: {
-      contacts: {
+      premisesList: {
         delete: delArray,
       },
     },
@@ -235,41 +230,65 @@ async function deleteInvestor(parent, args, context, info) {
     where: { investorID: args.investorId },
   }) */
 
-  const investorDel = await context.prisma.investor.delete({
-    where: { id: args.investorId },
+  const propertyDel = await context.prisma.property.delete({
+    where: { propertyId: args.propertyId },
   })
 
 
 
   /* const userId = getUserId(context) */
-  return investor
+  return property
 }
 
 
-function postContact(parent, args, context, info) {
+function postPremises(parent, args, context, info) {
   /* const userId = getUserId(context) */
 
-  const investorId = args.investorID
+  const propertyId = args.propertyId
 
-  const newContact = context.prisma.contact.create({
+  const newPremises = context.prisma.premises.create({
 
 
     data: {
-      name: args.contactName,
-      position: args.contactPosition,
-      officeNo: args.contactOfficeNo,
-      mobileNo: args.contactMobileNo,
-      email: args.contactEmail,
 
-      investorName: { connect: { id: investorId } },
+      floor:         args.floor,
+      area:          args.area,
+      vacant:        args.vacant,
+      type:          args.type,
+      occupation:    args.occupation,
+      premisesNotes: args.premisesNotes,
+      netRental:     args.netRental,
+      opCosts:       args.opCosts,
+      other:         args.other,
+      grossRental:   args.grossRental,
+      esc:           args.esc,
+      openBays:      args.openBays,
+      openRate:      args.openRate,
+      coveredBays:   args.coveredBays,
+      coveredRate:   args.coveredRate,
+      shadedBays:    args.shadedBays,
+      shadedRate:    args.shadedRate,
+      parkingRatio:  args.parkingRatio,
+      tenantName:    args.tenantName,
+      leaseExpiry:   args.leaseExpiry,
+      tenantNotes:   args.tenantNotes,
+      yard:          args.yard,
+      height:        args.height,
+      doors:         args.doors,
+      loading:       args.loading,
+      sprinklered:   args.sprinklered,
+      canopies:      args.canopies,
+      power:         args.power,
+
+      propertyName: { connect: { propertyId: propertyId } },
     }
   })
   /*  context.pubsub.publish("NEW_LINK", newLink) */
 
-  return newContact
+  return newPremises
 }
 
-async function deleteContact(parent, args, context, info) {
+async function deletePremises(parent, args, context, info) {
 
   /*  const contact =  await context.prisma.contact.findOne({
      where: {
@@ -278,12 +297,57 @@ async function deleteContact(parent, args, context, info) {
    }).investorName() */
 
 
-  const contactDel = await context.prisma.contact.delete({
-    where: { id: args.contactID },
+  const contactDel = await context.prisma.premises.delete({
+    where: { premisesId: args.premisesId },
   })
   /* const userId = getUserId(context) */
   return contactDel
 }
+
+async function updatePremises(parent, args, context, info) {
+  /* const userId = getUserId(context) */
+
+  const updatedPremises = await context.prisma.premises.update({
+    where: { premisesId: args.premisesId },
+    data: {
+
+      floor:         args.floor,
+      area:          args.area,
+      vacant:        args.vacant,
+      type:          args.type,
+      occupation:    args.occupation,
+      premisesNotes: args.premisesNotes,
+      netRental:     args.netRental,
+      opCosts:       args.opCosts,
+      other:         args.other,
+      grossRental:   args.grossRental,
+      esc:           args.esc,
+      openBays:      args.openBays,
+      openRate:      args.openRate,
+      coveredBays:   args.coveredBays,
+      coveredRate:   args.coveredRate,
+      shadedBays:    args.shadedBays,
+      shadedRate:    args.shadedRate,
+      parkingRatio:  args.parkingRatio,
+      tenantName:    args.tenantName,
+      leaseExpiry:   args.leaseExpiry,
+      tenantNotes:   args.tenantNotes,
+      yard:          args.yard,
+      height:        args.height,
+      doors:         args.doors,
+      loading:       args.loading,
+      sprinklered:   args.sprinklered,
+      canopies:      args.canopies,
+      power:         args.power,
+
+    }
+  })
+
+  return updatedPremises
+
+}
+
+
 
 async function login(parent, args, context, info) {
   // 1
@@ -330,12 +394,17 @@ async function signup(parent, args, context, info) {
 
 module.exports = {
 
-  postInvestor,
-  postContact,
+  postProperty,
+  postPremises,
+  deleteProperty,
+  deletePremises,
+  updateProperty,
+  updatePremises,
+ /*  
   deleteInvestor,
   deleteContact,
   updateInvestor,
-  setPrimaryContact,
+  setPrimaryContact, */
   login,
   signup,
 }

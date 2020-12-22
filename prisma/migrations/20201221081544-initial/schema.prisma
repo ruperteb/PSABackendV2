@@ -1,0 +1,83 @@
+// 1
+
+// datasource db {
+//  provider = "sqlite"
+//  url = "***"
+//}
+
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+// 2
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 3
+model Property {
+  propertyId Int @id @default(autoincrement())
+
+  propertyName       String
+  address            String
+  suburb             String
+  coordinates        String
+  earliestOccupation DateTime
+  earliestExpiry     DateTime
+  erfExtent          Int
+  totalGLA           Int
+  vacantArea         Int
+  buildingType       String
+  province           String
+  region             String
+  notes              String
+
+  premisesList Premises[]
+
+
+}
+
+model Premises {
+  premisesId Int @id @default(autoincrement())
+
+  floor         String
+  area          Int
+  vacant        String
+  type          String
+  occupation    DateTime
+  premisesNotes String
+  netRental     Int
+  opCosts       Int
+  other         Int
+  grossRental   Int
+  esc           Int
+  openBays      Int
+  openRate      Int
+  coveredBays   Int
+  coveredRate   Int
+  shadedBays    Int
+  shadedRate    Int
+  parkingRatio  Int
+  tenantName    String
+  leaseExpiry   DateTime
+  tenantNotes   String
+  yard          Int
+  height        Int
+  doors         Int
+  loading       String
+  sprinklered   String
+  canopies      String
+  power         String
+
+  propertyName Property @relation(fields: [propertyId], references: [propertyId])
+  propertyId   Int
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+
+}

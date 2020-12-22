@@ -1,0 +1,245 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "address",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "suburb",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "coordinates",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "earliestOccupation",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "earliestExpiry",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "erfExtent",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "totalGLA",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "vacantArea",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "buildingType",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "province",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "region",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "notes",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "floor",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "area",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "vacant",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "type",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "occupation",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "premisesNotes",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "netRental",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "opCosts",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "other",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "grossRental",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "esc",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "openBays",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "openRate",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "coveredBays",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "coveredRate",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "shadedBays",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "shadedRate",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "parkingRatio",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "tenantName",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "leaseExpiry",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "tenantNotes",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "yard",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "height",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "doors",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "loading",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "sprinklered",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "canopies",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "power",
+      "arity": "Optional"
+    }
+  ]
+}

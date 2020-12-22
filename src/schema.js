@@ -1,41 +1,128 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+
+scalar DateTime
+
 type Query {
   
-    investors: [Investor],
-    contacts: [Contact]
+    properties: [Property],
+    premisesList: [Premises]
 }
 
 type Mutation {
- postInvestor (investorName: String!,
- commercial: Boolean = false,
-  industrial: Boolean = false,
-  retail: Boolean = false,
-  residential: Boolean = false,
-  hotel: Boolean = false,
- 
-  wc: Boolean = false,
-  gau: Boolean = false,
-  kzn: Boolean = false,
-  allregions: Boolean = false,
+ postProperty (
 
-  contactName: String = "",
-  contactPosition: String = "",
-  contactOfficeNo: String = "",
- contactMobileNo: String = "",
- contactEmail: String = "",
- minInvest: Int=0,
-  maxInvest: Int=100
+  propertyName:       String!,
+  address:            String,
+  suburb:             String,
+  coordinates:        String,
+  earliestOccupation: DateTime,
+  earliestExpiry:     DateTime,
+  erfExtent:          Int,
+  totalGLA:           Int,
+  vacantArea:         Int,
+  buildingType:       String,
+  province:           String,
+  region:             String,
+  notes:              String,
 
-  listed: Boolean = false,
-  unlisted: Boolean = false,
-  private: Boolean = false,
-  bee: Boolean = false,
-  notes: String = "",
- ): Investor!
 
- updateInvestor (investorId: Int!,
+ ): Property!
+
+ postPremises (
+
+  propertyId: Int!
+
+  floor:         String,
+area:          Int,
+vacant:        String,
+type:          String,
+occupation:    DateTime,
+premisesNotes: String,
+netRental:     Int,
+opCosts:       Int,
+other:         Int,
+grossRental:   Int,
+esc:           Int,
+openBays:      Int,
+openRate:      Int,
+coveredBays:   Int,
+coveredRate:   Int,
+shadedBays:    Int,
+shadedRate:    Int,
+parkingRatio:  Int,
+tenantName:    String,
+leaseExpiry:   DateTime,
+tenantNotes:   String,
+yard:          Int,
+height:        Int,
+doors:         Int,
+loading:       String,
+sprinklered:   String,
+canopies:      String,
+power:         String,
+
+): Premises!
+
+deleteProperty (propertyId: Int): Property!
+
+deletePremises (premisesId: Int): Premises!
+
+updateProperty (
+propertyId:         Int!
+propertyName:       String!,
+address:            String,
+suburb:             String,
+coordinates:        String,
+earliestOccupation: DateTime,
+earliestExpiry:     DateTime,
+erfExtent:          Int,
+totalGLA:           Int,
+vacantArea:         Int,
+buildingType:       String,
+province:           String,
+region:             String,
+notes:              String,
+
+
+): Property!
+
+updatePremises (
+premisesId:         Int!
+floor:         String,
+area:          Int,
+vacant:        String,
+type:          String,
+occupation:    DateTime,
+premisesNotes: String,
+netRental:     Int,
+opCosts:       Int,
+other:         Int,
+grossRental:   Int,
+esc:           Int,
+openBays:      Int,
+openRate:      Int,
+coveredBays:   Int,
+coveredRate:   Int,
+shadedBays:    Int,
+shadedRate:    Int,
+parkingRatio:  Int,
+tenantName:    String,
+leaseExpiry:   DateTime,
+tenantNotes:   String,
+yard:          Int,
+height:        Int,
+doors:         Int,
+loading:       String,
+sprinklered:   String,
+canopies:      String,
+power:         String,
+
+
+): Premises!
+
+ """ updateInvestor (investorId: Int!,
    investorName: String,
  commercial: Boolean = false,
   industrial: Boolean = false,
@@ -77,7 +164,7 @@ contactId: Int,
 
  deleteContact (contactID: Int): Contact!
 
- setPrimaryContact (investorID: Int, contactID: Int): Investor!
+ setPrimaryContact (investorID: Int, contactID: Int): Investor! """
 
   login (email: String!, password: String!): AuthPayload
 
@@ -85,38 +172,65 @@ contactId: Int,
 
 }
 
-type Investor {
- id: Int!
- investorName: String!
- commercial: Boolean
-  industrial: Boolean
-  retail: Boolean
-  residential: Boolean
-  hotel: Boolean
-  contacts: [Contact]
-  wc: Boolean
-  gau: Boolean
-  kzn: Boolean
-  allregions: Boolean
-  minInvest: Int
-  maxInvest: Int
-  listed: Boolean
-  unlisted: Boolean
-  private: Boolean
-  bee: Boolean
-  notes: String
+type Property {
+  propertyId:         Int!
+
+  propertyName:       String!
+  address:            String
+  suburb:             String
+  coordinates:        String
+  earliestOccupation: DateTime
+  earliestExpiry:     DateTime
+  erfExtent:          Int
+  totalGLA:           Int
+  vacantArea:         Int
+  buildingType:       String
+  province:           String
+  region:             String
+  notes:              String
+
+  premisesList:       [Premises]
+
+
+
   
   
 }
 
-type Contact {
- id: Int!
- name: String!
- position: String
- officeNo: String
- mobileNo: String
- email: String
- investorName: Investor
+type Premises {
+ 
+premisesId: Int 
+
+floor:         String
+area:          Int
+vacant:        String
+type:          String
+occupation:    DateTime
+premisesNotes: String
+netRental:     Int
+opCosts:       Int
+other:         Int
+grossRental:   Int
+esc:           Int
+openBays:      Int
+openRate:      Int
+coveredBays:   Int
+coveredRate:   Int
+shadedBays:    Int
+shadedRate:    Int
+parkingRatio:  Int
+tenantName:    String
+leaseExpiry:   DateTime
+tenantNotes:   String
+yard:          Int
+height:        Int
+doors:         Int
+loading:       String
+sprinklered:   String
+canopies:      String
+power:         String
+propertyName: Property
+ 
 }
 
 type AuthPayload {

@@ -12,8 +12,9 @@ const typeDefs = require('./schema')
 
 const Query = require('./resolvers/Query')
 const Mutation = require('./resolvers/Mutation')
-const Contact = require('./resolvers/Contact')
-const Investor = require('./resolvers/Investor')
+const Premises = require('./resolvers/Premises')
+const Property = require('./resolvers/Property')
+const DateTime = require('./resolvers/DateTime')
 /* const Mutation = require('./resolvers/Mutation')
 const User = require('./resolvers/User')
 const Link = require('./resolvers/Link')
@@ -34,8 +35,9 @@ const prisma = new PrismaClient()
 const resolvers = {
     Query,
     Mutation,
-    Contact,
-    Investor,
+    Premises,
+    Property,
+    DateTime,
     
   }
 
@@ -65,10 +67,14 @@ const server = new ApolloServer({
   resolvers,
   introspection: true,
   playground: true,
-  context: request => {
+  context: ({req}) => {
+
+    /* const token = request.headers.authorization || '' */
     return {
-      ...request,
+      ...req,
       prisma,
+      token: req.headers.authorization
+      
      
     }
   },
