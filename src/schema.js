@@ -10,7 +10,9 @@ type Query {
     premisesList: [Premises],
     singleProperty (
       propertyId: Int!
-    ): Property!
+    ): Property!,
+    distinctSuburbs: [Suburb],
+    distinctRegions: [Region],
 }
 
 type Mutation {
@@ -248,6 +250,18 @@ type User {
  
 }
 
+type Suburb {
+  suburb: String
+  province: String
+ }
+
+ type Region {
+  region: String
+  province: String
+ }
+
 `
+
+
 
 module.exports = typeDefs;
