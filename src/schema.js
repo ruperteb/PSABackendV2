@@ -76,7 +76,7 @@ deletePremises (premisesId: Int): Premises!
 
 updateProperty (
 propertyId:         Int!
-propertyName:       String!,
+propertyName:       String,
 address:            String,
 suburb:             String,
 coordinates:        String,
@@ -89,6 +89,7 @@ buildingType:       String,
 province:           String,
 region:             String,
 notes:              String,
+images:             [String]
 
 
 ): Property!
@@ -195,6 +196,7 @@ type Property {
   notes:              String
 
   premisesList:       [Premises]
+  images:             [String]
 
 
 

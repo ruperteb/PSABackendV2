@@ -70,7 +70,7 @@ async function postProperty(parent, args, context, info) {
 async function updateProperty(parent, args, context, info) {
   /* const userId = getUserId(context) */
 
-  const updatedInvestor = await context.prisma.property.update({
+  const updatedProperty = await context.prisma.property.update({
     where: { propertyId: args.propertyId },
     data: {
 
@@ -87,11 +87,11 @@ async function updateProperty(parent, args, context, info) {
       province:           args.province,
       region:             args.region,
       notes:              args.notes,
-
+      images:             args.images
     }
   })
 
-  return updatedInvestor
+  return updatedProperty
 
 }
 
