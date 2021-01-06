@@ -1,0 +1,119 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "erfExtent",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "totalGLA",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Property",
+      "field": "vacantArea",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "area",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "netRental",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "opCosts",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "other",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "grossRental",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "esc",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "openBays",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "openRate",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "coveredBays",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "coveredRate",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "shadedBays",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "shadedRate",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "parkingRatio",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "yard",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "height",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Premises",
+      "field": "doors",
+      "type": "Float"
+    }
+  ]
+}

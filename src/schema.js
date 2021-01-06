@@ -24,9 +24,9 @@ type Mutation {
   coordinates:        String,
   earliestOccupation: DateTime,
   earliestExpiry:     DateTime,
-  erfExtent:          Int,
-  totalGLA:           Int,
-  vacantArea:         Int,
+  erfExtent:          Float,
+  totalGLA:           Float,
+  vacantArea:         Float,
   buildingType:       String,
   province:           String,
   region:             String,
@@ -40,29 +40,30 @@ type Mutation {
   propertyId: Int!
 
   floor:         String,
-area:          Int,
+area:          Float,
 vacant:        String,
 type:          String,
 occupation:    DateTime,
+premisesIndex: Int,
 premisesNotes: String,
-netRental:     Int,
-opCosts:       Int,
-other:         Int,
-grossRental:   Int,
-esc:           Int,
-openBays:      Int,
-openRate:      Int,
-coveredBays:   Int,
-coveredRate:   Int,
-shadedBays:    Int,
-shadedRate:    Int,
-parkingRatio:  Int,
+netRental:     Float,
+opCosts:       Float,
+other:         Float,
+grossRental:   Float,
+esc:           Float,
+openBays:      Float,
+openRate:      Float,
+coveredBays:   Float,
+coveredRate:   Float,
+shadedBays:    Float,
+shadedRate:    Float,
+parkingRatio:  Float,
 tenantName:    String,
 leaseExpiry:   DateTime,
 tenantNotes:   String,
-yard:          Int,
-height:        Int,
-doors:         Int,
+yard:          Float,
+height:        Float,
+doors:         Float,
 loading:       String,
 sprinklered:   String,
 canopies:      String,
@@ -82,9 +83,9 @@ suburb:             String,
 coordinates:        String,
 earliestOccupation: DateTime,
 earliestExpiry:     DateTime,
-erfExtent:          Int,
-totalGLA:           Int,
-vacantArea:         Int,
+erfExtent:          Float,
+totalGLA:           Float,
+vacantArea:         Float,
 buildingType:       String,
 province:           String,
 region:             String,
@@ -97,29 +98,30 @@ images:             [String]
 updatePremises (
 premisesId:         Int!
 floor:         String,
-area:          Int,
+area:          Float,
 vacant:        String,
 type:          String,
 occupation:    DateTime,
+premisesIndex: Int,
 premisesNotes: String,
-netRental:     Int,
-opCosts:       Int,
-other:         Int,
-grossRental:   Int,
-esc:           Int,
-openBays:      Int,
-openRate:      Int,
-coveredBays:   Int,
-coveredRate:   Int,
-shadedBays:    Int,
-shadedRate:    Int,
-parkingRatio:  Int,
+netRental:     Float,
+opCosts:       Float,
+other:         Float,
+grossRental:   Float,
+esc:           Float,
+openBays:      Float,
+openRate:      Float,
+coveredBays:   Float,
+coveredRate:   Float,
+shadedBays:    Float,
+shadedRate:    Float,
+parkingRatio:  Float,
 tenantName:    String,
 leaseExpiry:   DateTime,
 tenantNotes:   String,
-yard:          Int,
-height:        Int,
-doors:         Int,
+yard:          Float,
+height:        Float,
+doors:         Float,
 loading:       String,
 sprinklered:   String,
 canopies:      String,
@@ -187,9 +189,9 @@ type Property {
   coordinates:        String
   earliestOccupation: DateTime
   earliestExpiry:     DateTime
-  erfExtent:          Int
-  totalGLA:           Int
-  vacantArea:         Int
+  erfExtent:          Float
+  totalGLA:           Float
+  vacantArea:         Float
   buildingType:       String
   province:           String
   region:             String
@@ -209,29 +211,30 @@ type Premises {
 premisesId: Int 
 
 floor:         String
-area:          Int
+area:          Float
 vacant:        String
 type:          String
 occupation:    DateTime
+premisesIndex: Int
 premisesNotes: String
-netRental:     Int
-opCosts:       Int
-other:         Int
-grossRental:   Int
-esc:           Int
-openBays:      Int
-openRate:      Int
-coveredBays:   Int
-coveredRate:   Int
-shadedBays:    Int
-shadedRate:    Int
-parkingRatio:  Int
+netRental:     Float
+opCosts:       Float
+other:         Float
+grossRental:   Float
+esc:           Float
+openBays:      Float
+openRate:      Float
+coveredBays:   Float
+coveredRate:   Float
+shadedBays:    Float
+shadedRate:    Float
+parkingRatio:  Float
 tenantName:    String
 leaseExpiry:   DateTime
 tenantNotes:   String
-yard:          Int
-height:        Int
-doors:         Int
+yard:          Float
+height:        Float
+doors:         Float
 loading:       String
 sprinklered:   String
 canopies:      String

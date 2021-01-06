@@ -2,12 +2,12 @@
 
 // datasource db {
 //  provider = "sqlite"
-//  url      = "file:./dev.db"
+//  url = "***"
 //}
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 // 2
@@ -48,7 +48,6 @@ model Premises {
   vacant        String?
   type          String?
   occupation    DateTime?
-  premisesIndex Int?
   premisesNotes String?
   netRental     Float?
   opCosts       Float?
