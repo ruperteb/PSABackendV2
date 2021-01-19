@@ -11,6 +11,9 @@ type Query {
     singleProperty (
       propertyId: Int!
     ): Property!,
+    multiProperty (
+      propertyIdList: [Int]
+    ): [Property],
     distinctSuburbs: [Suburb],
     distinctRegions: [Region],
 }

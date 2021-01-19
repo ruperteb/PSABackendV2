@@ -14,6 +14,16 @@
     
   }
 
+  async function multiProperty(parent, args, context, info) {
+    return context.prisma.property.findMany({
+      where: {
+        propertyId: { in: args.propertyIdList}
+      },
+    })
+    
+  }
+
+
   async function premisesList(parent, args, context, info) {
     return context.prisma.premises.findMany()
     
@@ -49,6 +59,7 @@ async function distinctRegions(parent, args, context, info) {
     properties,
     premisesList,
     singleProperty,
+    multiProperty,
     distinctSuburbs,
     distinctRegions
    
