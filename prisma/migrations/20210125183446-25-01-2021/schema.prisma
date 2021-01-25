@@ -2,12 +2,12 @@
 
 // datasource db {
 //  provider = "sqlite"
-//  url      = "file:./dev.db"
+//  url = "***"
 //}
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 // 2
@@ -96,10 +96,10 @@ model Landlord {
 
 model LandlordContact {
   contactId       Int    @id @default(autoincrement())
-  name     String?
+  name     String ?
   email     String? 
-  officeNo     String?
-  mobileNo     String?
+  officeNo     String ?
+  mobileNo     String ?
 
   landlordName Landlord @relation(fields: [landlordId], references: [landlordId])
   landlordId   Int

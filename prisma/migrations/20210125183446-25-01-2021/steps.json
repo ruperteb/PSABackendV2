@@ -1,0 +1,265 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateModel",
+      "model": "Landlord"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Landlord",
+      "field": "landlordId",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Landlord",
+          "field": "landlordId"
+        },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Landlord",
+          "field": "landlordId"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Landlord",
+          "field": "landlordId"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "autoincrement()"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Landlord",
+      "field": "landlordName",
+      "type": "String",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Landlord",
+          "field": "landlordName"
+        },
+        "directive": "unique"
+      }
+    },
+    {
+      "tag": "CreateField",
+      "model": "Landlord",
+      "field": "contactsList",
+      "type": "LandlordContact",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateModel",
+      "model": "LandlordContact"
+    },
+    {
+      "tag": "CreateField",
+      "model": "LandlordContact",
+      "field": "contactId",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "LandlordContact",
+          "field": "contactId"
+        },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "LandlordContact",
+          "field": "contactId"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "LandlordContact",
+          "field": "contactId"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "autoincrement()"
+    },
+    {
+      "tag": "CreateField",
+      "model": "LandlordContact",
+      "field": "name",
+      "type": "String",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "LandlordContact",
+      "field": "email",
+      "type": "String",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "LandlordContact",
+      "field": "officeNo",
+      "type": "String",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "LandlordContact",
+      "field": "mobileNo",
+      "type": "String",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "LandlordContact",
+      "field": "landlordName",
+      "type": "Landlord",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "LandlordContact",
+          "field": "landlordName"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "LandlordContact",
+          "field": "landlordName"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[landlordId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "LandlordContact",
+          "field": "landlordName"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[landlordId]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "LandlordContact",
+      "field": "landlordId",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "LandlordContact",
+      "field": "propertyList",
+      "type": "Property",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Property",
+      "field": "contact",
+      "type": "LandlordContact",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Property",
+          "field": "contact"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Property",
+          "field": "contact"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[contactId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Property",
+          "field": "contact"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[contactId]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Property",
+      "field": "contactId",
+      "type": "Int",
+      "arity": "Optional"
+    }
+  ]
+}

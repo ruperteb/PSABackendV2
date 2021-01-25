@@ -14,6 +14,8 @@ const Query = require('./resolvers/Query')
 const Mutation = require('./resolvers/Mutation')
 const Premises = require('./resolvers/Premises')
 const Property = require('./resolvers/Property')
+const Landlord = require('./resolvers/Landlord')
+const LandlordContact = require('./resolvers/LandlordContact')
 const DateTime = require('./resolvers/DateTime')
 /* const Mutation = require('./resolvers/Mutation')
 const User = require('./resolvers/User')
@@ -37,6 +39,8 @@ const resolvers = {
     Mutation,
     Premises,
     Property,
+    Landlord,
+    LandlordContact,
     DateTime,
     
   }

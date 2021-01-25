@@ -5,6 +5,27 @@
     
   }
 
+  async function landlords(parent, args, context, info) {
+    return context.prisma.landlord.findMany()
+    
+  }
+
+  async function landlordContacts(parent, args, context, info) {
+    return context.prisma.landlordContact.findMany()
+    
+  }
+
+  async function contactsByLandlord(parent, args, context, info) {
+    return context.prisma.landlordContact.findMany({
+      where: {
+        landlordName: {
+          landlordId: args.landlordId
+        }
+      },
+    })
+    
+  }
+
   async function singleProperty(parent, args, context, info) {
     return context.prisma.property.findUnique({
       where: {
@@ -60,7 +81,10 @@ async function distinctRegions(parent, args, context, info) {
     premisesList,
     singleProperty,
     multiProperty,
+    landlords,
+    landlordContacts,
     distinctSuburbs,
-    distinctRegions
+    distinctRegions,
+    contactsByLandlord
    
   }

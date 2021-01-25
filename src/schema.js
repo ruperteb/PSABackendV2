@@ -14,8 +14,13 @@ type Query {
     multiProperty (
       propertyIdList: [Int]
     ): [Property],
+    landlords: [Landlord],
+    landlordContacts: [LandlordContact],
     distinctSuburbs: [Suburb],
     distinctRegions: [Region],
+    contactsByLandlord (
+      landlordId: Int!
+    ): [LandlordContact],
 }
 
 type Mutation {
@@ -73,6 +78,26 @@ canopies:      String,
 power:         String,
 
 ): Premises!
+
+
+postLandlord (
+
+landlordName:       String,
+
+): Landlord!
+
+postLandlordContact (
+
+landlordId: Int!
+
+name:         String,
+email:          String,
+officeNo:        String,
+mobileNo:          String,
+
+
+): LandlordContact!
+
 
 deleteProperty (propertyId: Int): Property!
 
@@ -133,49 +158,7 @@ power:         String,
 
 ): Premises!
 
- """ updateInvestor (investorId: Int!,
-   investorName: String,
- commercial: Boolean = false,
-  industrial: Boolean = false,
-  retail: Boolean = false,
-  residential: Boolean = false,
-  hotel: Boolean = false,
  
-  wc: Boolean = false,
-  gau: Boolean = false,
-  kzn: Boolean = false,
-  allregions: Boolean = false,
-
-contactId: Int,
-  contactName: String = "",
-  contactPosition: String = "",
-  contactOfficeNo: String = "",
- contactMobileNo: String = "",
- contactEmail: String = "",
- minInvest: Int=0,
-  maxInvest: Int=100
-
-  listed: Boolean = false,
-  unlisted: Boolean = false,
-  private: Boolean = false,
-  bee: Boolean = false,
-  notes: String = "",
- ): Investor!
-
- deleteInvestor (investorId: Int): Investor!
-
- postContact (
-  contactName: String = "",
-  contactPosition: String = "",
-  contactOfficeNo: String = "",
- contactMobileNo: String = "",
- contactEmail: String = "",
- investorID: Int
- ): Contact!
-
- deleteContact (contactID: Int): Contact!
-
- setPrimaryContact (investorID: Int, contactID: Int): Investor! """
 
   login (email: String!, password: String!): AuthPayload
 
@@ -202,6 +185,8 @@ type Property {
 
   premisesList:       [Premises]
   images:             [String]
+
+  contact: LandlordContact
 
 
 
@@ -267,6 +252,28 @@ type Suburb {
   region: String
   province: String
  }
+
+
+ type Landlord {
+ landlordId: Int!
+ landlordName: String
+ 
+ contactsList:   [LandlordContact]
+}
+
+type LandlordContact {
+  contactId:       Int!
+  name:     String 
+  email:     String
+  officeNo:     String 
+  mobileNo:     String 
+
+  landlordName: Landlord 
+  propertyList: [Property]
+}
+
+
+
 
 `
 

@@ -349,6 +349,44 @@ async function updatePremises(parent, args, context, info) {
 
 }
 
+async function postLandlord(parent, args, context, info) {
+  /* const userId = getUserId(context) */
+
+  const newLandlord = await context.prisma.landlord.create({
+    data: {
+
+      landlordName:       args.landlordName,
+     
+    }
+  })
+ 
+  return newLandlord
+
+}
+
+function postLandlordContact(parent, args, context, info) {
+  /* const userId = getUserId(context) */
+
+  const landlordId = args.landlordId
+
+  const newContact = context.prisma.landlordContact.create({
+
+
+    data: {
+
+      name:         args.name,
+      email:          args.email,
+      officeNo:        args.officeNo,
+      mobileNo:          args.mobileNo,
+     
+      landlordName: { connect: { landlordId: landlordId } },
+    }
+  })
+  /*  context.pubsub.publish("NEW_LINK", newLink) */
+
+  return newContact
+}
+
 
 
 async function login(parent, args, context, info) {
@@ -402,6 +440,8 @@ module.exports = {
   deletePremises,
   updateProperty,
   updatePremises,
+  postLandlord,
+  postLandlordContact,
  /*  
   deleteInvestor,
   deleteContact,
