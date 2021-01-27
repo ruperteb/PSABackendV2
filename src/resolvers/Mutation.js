@@ -5,6 +5,8 @@ const { APP_SECRET, getUserId } = require('../utils')
 async function postProperty(parent, args, context, info) {
   /* const userId = getUserId(context) */
 
+  const contactId = args.contactId
+
   const newProperty = await context.prisma.property.create({
     data: {
 
@@ -21,6 +23,8 @@ async function postProperty(parent, args, context, info) {
       province:           args.province,
       region:             args.region,
       notes:              args.notes,
+
+      contact: { connect: { contactId: contactId } },
 
       /* investorName: args.investorName,
       commercial: args.commercial,

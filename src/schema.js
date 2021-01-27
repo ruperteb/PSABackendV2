@@ -26,6 +26,8 @@ type Query {
 type Mutation {
  postProperty (
 
+  contactId: Int
+
   propertyName:       String!,
   address:            String,
   suburb:             String,
