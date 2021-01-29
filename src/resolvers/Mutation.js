@@ -72,7 +72,10 @@ async function postProperty(parent, args, context, info) {
 }
 
 async function updateProperty(parent, args, context, info) {
+
   /* const userId = getUserId(context) */
+
+  const contactId = args.contactId
 
   const updatedProperty = await context.prisma.property.update({
     where: { propertyId: args.propertyId },
@@ -91,7 +94,9 @@ async function updateProperty(parent, args, context, info) {
       province:           args.province,
       region:             args.region,
       notes:              args.notes,
-      images:             args.images
+      images:             args.images,
+
+      contact: { connect: { contactId: contactId } },
     }
   })
 
@@ -244,6 +249,63 @@ async function deleteProperty(parent, args, context, info) {
   return property
 }
 
+async function deleteLandlord(parent, args, context, info) {
+  const landlord = await context.prisma.landlord.findUnique({
+    where: {
+      landlordId: args.landlordId,
+
+    },
+    select: {
+      landlordId: true,
+      landlordName: true,
+      contactsList: {
+        include: {
+          name: true,
+        },
+      },
+    },
+  })
+
+  
+  const delArray = []
+  const delMap = await landlord.contactsList.map((contact, index) => {
+    
+    delArray[index] = { contactId: contact.contactId }
+  })
+
+  
+  const contactDel = await context.prisma.landlord.update({
+    where: { landlordId: args.landlordId },
+    data: {
+      contactsList: {
+        delete: delArray,
+      },
+    },
+  })
+
+  /* const contactDel = await context.prisma.contact.delete({
+    where: { investorID: args.investorId },
+  }) */
+
+  const landlordDel = await context.prisma.landlord.delete({
+    where: { landlordId: args.landlordId },
+  })
+
+
+
+  /* const userId = getUserId(context) */
+  return landlord
+}
+
+async function deleteLandlordContact(parent, args, context, info) {
+
+  const contactDel = await context.prisma.landlordContact.delete({
+    where: { contactId: args.contactId },
+  })
+  /* const userId = getUserId(context) */
+  return contactDel
+}
+
 
 function postPremises(parent, args, context, info) {
   /* const userId = getUserId(context) */
@@ -302,11 +364,11 @@ async function deletePremises(parent, args, context, info) {
    }).investorName() */
 
 
-  const contactDel = await context.prisma.premises.delete({
+  const premisesDel = await context.prisma.premises.delete({
     where: { premisesId: args.premisesId },
   })
   /* const userId = getUserId(context) */
-  return contactDel
+  return premisesDel
 }
 
 async function updatePremises(parent, args, context, info) {
@@ -358,14 +420,22 @@ async function postLandlord(parent, args, context, info) {
 
   const newLandlord = await context.prisma.landlord.create({
     data: {
-
       landlordName:       args.landlordName,
-     
     }
   })
- 
   return newLandlord
+}
 
+async function updateLandlord(parent, args, context, info) {
+  /* const userId = getUserId(context) */
+
+  const updatedLandlord = await context.prisma.landlord.update({
+    where: {landlordId: args.landlordId},
+    data: {
+      landlordName:       args.landlordName,
+    }
+  })
+  return updatedLandlord
 }
 
 function postLandlordContact(parent, args, context, info) {
@@ -391,7 +461,20 @@ function postLandlordContact(parent, args, context, info) {
   return newContact
 }
 
+async function updateLandlordContact(parent, args, context, info) {
+  /* const userId = getUserId(context) */
 
+  const updatedLandlordContact = await context.prisma.landlordContact.update({
+    where: {contactId: args.contactId},
+    data: {
+      name:         args.name,
+      email:          args.email,
+      officeNo:        args.officeNo,
+      mobileNo:          args.mobileNo,
+    }
+  })
+  return updatedLandlordContact
+}
 
 async function login(parent, args, context, info) {
   // 1
@@ -446,6 +529,10 @@ module.exports = {
   updatePremises,
   postLandlord,
   postLandlordContact,
+  deleteLandlord,
+  deleteLandlordContact,
+  updateLandlord,
+  updateLandlordContact,
  /*  
   deleteInvestor,
   deleteContact,

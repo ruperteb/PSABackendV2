@@ -105,7 +105,13 @@ deleteProperty (propertyId: Int): Property!
 
 deletePremises (premisesId: Int): Premises!
 
+deleteLandlord (landlordId: Int): Landlord!
+
+deleteLandlordContact (contactId: Int): LandlordContact!
+
 updateProperty (
+  contactId: Int
+
 propertyId:         Int!
 propertyName:       String,
 address:            String,
@@ -159,6 +165,21 @@ power:         String,
 
 
 ): Premises!
+
+updateLandlord (
+landlordId:         Int!,
+landlordName:       String,
+
+): Landlord!
+
+updateLandlordContact (
+contactId:         Int!,
+name:              String,
+email:             String,
+officeNo:          String,
+mobileNo:          String,
+
+): LandlordContact!
 
  
 
