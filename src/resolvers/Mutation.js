@@ -260,7 +260,7 @@ async function deleteLandlord(parent, args, context, info) {
       landlordName: true,
       contactsList: {
         include: {
-          name: true,
+          landlordName: true,
         },
       },
     },
