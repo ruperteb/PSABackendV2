@@ -476,6 +476,42 @@ async function updateLandlordContact(parent, args, context, info) {
   return updatedLandlordContact
 }
 
+async function postPropertyList(parent, args, context, info) {
+  /* const userId = getUserId(context) */
+
+  const newPropertyList = await context.prisma.propertyList.create({
+    data: {
+      enquiryName:       args.enquiryName,
+      enquiryDate:       args.enquiryDate,
+      propertyList:      args.propertyList,
+    }
+  })
+  return newPropertyList
+}
+
+async function updatePropertyList(parent, args, context, info) {
+  /* const userId = getUserId(context) */
+
+  const updatedPropertyList = await context.prisma.propertyList.update({
+    where: {propertyListId: args.propertyListId},
+    data: {
+      enquiryName:       args.enquiryName,
+      enquiryDate:       args.enquiryDate,
+      propertyList:      args.propertyList,
+    }
+  })
+  return updatedPropertyList
+}
+
+async function deletePropertyList(parent, args, context, info) {
+
+  const propertyListDel = await context.prisma.propertyList.delete({
+    where: { propertyListId: args.propertyListId },
+  })
+  /* const userId = getUserId(context) */
+  return propertyListDel
+}
+
 async function login(parent, args, context, info) {
   // 1
   const user = await context.prisma.user.findUnique({ where: { email: args.email } })
@@ -533,6 +569,10 @@ module.exports = {
   deleteLandlordContact,
   updateLandlord,
   updateLandlordContact,
+  postPropertyList,
+  updatePropertyList,
+  deletePropertyList,
+  
  /*  
   deleteInvestor,
   deleteContact,

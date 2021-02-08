@@ -109,6 +109,8 @@ deleteLandlord (landlordId: Int): Landlord!
 
 deleteLandlordContact (contactId: Int): LandlordContact!
 
+deletePropertyList (propertyListId: Int): PropertyList!
+
 updateProperty (
   contactId: Int
 
@@ -180,6 +182,26 @@ officeNo:          String,
 mobileNo:          String,
 
 ): LandlordContact!
+
+postPropertyList (
+
+enquiryName:       String,
+enquiryDate:       DateTime,
+
+propertyList:     [Property]
+
+): PropertyList!
+
+updatePropertyList (
+
+propertyListId:  Int!,
+
+enquiryName:       String,
+enquiryDate:       DateTime,
+
+propertyList:     [Property]
+
+): PropertyList!
 
  
 
@@ -294,6 +316,15 @@ type LandlordContact {
   landlordName: Landlord 
   propertyList: [Property]
 }
+
+type PropertyList {
+  propertyListId:       Int!
+  enquiryName:     String 
+  enquiryDate:     DateTime
+  
+  propertyList: [Property]
+}
+
 
 
 

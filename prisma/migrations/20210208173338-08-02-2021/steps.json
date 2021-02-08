@@ -1,0 +1,73 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateModel",
+      "model": "PropertyList"
+    },
+    {
+      "tag": "CreateField",
+      "model": "PropertyList",
+      "field": "propertyListId",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "PropertyList",
+          "field": "propertyListId"
+        },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "PropertyList",
+          "field": "propertyListId"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "PropertyList",
+          "field": "propertyListId"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "autoincrement()"
+    },
+    {
+      "tag": "CreateField",
+      "model": "PropertyList",
+      "field": "enquiryName",
+      "type": "String",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "PropertyList",
+      "field": "enquiryDate",
+      "type": "DateTime",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "PropertyList",
+      "field": "propertyList",
+      "type": "Property",
+      "arity": "List"
+    }
+  ]
+}
