@@ -322,7 +322,7 @@ type PropertyList {
   enquiryName:     String 
   enquiryDate:     DateTime
   
-  propertyList: [Property]
+  properties: [Property]
 }
 
 

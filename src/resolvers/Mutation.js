@@ -483,7 +483,7 @@ async function postPropertyList(parent, args, context, info) {
     data: {
       enquiryName:       args.enquiryName,
       enquiryDate:       args.enquiryDate,
-      propertyList:      args.propertyList,
+      properties:      args.properties,
     }
   })
   return newPropertyList
@@ -497,7 +497,7 @@ async function updatePropertyList(parent, args, context, info) {
     data: {
       enquiryName:       args.enquiryName,
       enquiryDate:       args.enquiryDate,
-      propertyList:      args.propertyList,
+      properties:      args.properties,
     }
   })
   return updatedPropertyList

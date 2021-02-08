@@ -1,0 +1,17 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "PropertyList",
+      "field": "properties",
+      "type": "Property",
+      "arity": "List"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "PropertyList",
+      "field": "propertyList"
+    }
+  ]
+}
