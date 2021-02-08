@@ -21,6 +21,7 @@ type Query {
     contactsByLandlord (
       landlordId: Int!
     ): [LandlordContact],
+    propertyLists: [PropertyList],
 }
 
 type Mutation {
@@ -188,7 +189,7 @@ postPropertyList (
 enquiryName:       String,
 enquiryDate:       DateTime,
 
-propertyList:     [Property]
+propertyIdList: [Int]
 
 ): PropertyList!
 
@@ -199,7 +200,7 @@ propertyListId:  Int!,
 enquiryName:       String,
 enquiryDate:       DateTime,
 
-propertyList:     [Property]
+propertyIdList: [Int]
 
 ): PropertyList!
 
@@ -232,6 +233,8 @@ type Property {
   images:             [String]
 
   contact: LandlordContact
+
+  propertyLists: [PropertyList]
 
 
 

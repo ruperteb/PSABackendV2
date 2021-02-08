@@ -479,27 +479,58 @@ async function updateLandlordContact(parent, args, context, info) {
 async function postPropertyList(parent, args, context, info) {
   /* const userId = getUserId(context) */
 
+  /* const selectedProperties = await context.prisma.property.findMany({
+    where: {
+      propertyId: { in: args.propertyIdList}
+    },
+    orderBy: {
+      propertyName: 'asc',
+    },
+  }) */
+
+  const propertyIdArray = args.propertyIdList.map((id) => {
+return {propertyId: id}
+
+  })
+
   const newPropertyList = await context.prisma.propertyList.create({
     data: {
       enquiryName:       args.enquiryName,
       enquiryDate:       args.enquiryDate,
-      properties:      args.properties,
+      properties:      {connect: propertyIdArray},
     }
-  })
+  }, info)
   return newPropertyList
 }
 
 async function updatePropertyList(parent, args, context, info) {
   /* const userId = getUserId(context) */
 
+  /* const selectedProperties = await context.prisma.property.findMany({
+    where: {
+      propertyId: { in: args.propertyIdList}
+    },
+    orderBy: {
+      propertyName: 'asc',
+    },
+  }) */
+
+  const propertyIdArray = args.propertyIdList.map((id) => {
+    return {propertyId: id}
+    
+      })
+
   const updatedPropertyList = await context.prisma.propertyList.update({
+
+
+    
     where: {propertyListId: args.propertyListId},
     data: {
       enquiryName:       args.enquiryName,
       enquiryDate:       args.enquiryDate,
-      properties:      args.properties,
+      properties:      {set: propertyIdArray},
     }
-  })
+  }, info)
   return updatedPropertyList
 }
 

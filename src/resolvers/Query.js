@@ -101,6 +101,15 @@ async function distinctRegions(parent, args, context, info) {
   return distinctRegions
 }
 
+async function propertyLists(parent, args, context, info) {
+  return context.prisma.propertyList.findMany({
+    orderBy: {
+      enquiryName: 'asc',
+    },
+  })
+  
+}
+
   module.exports = {
     properties,
     premisesList,
@@ -110,6 +119,7 @@ async function distinctRegions(parent, args, context, info) {
     landlordContacts,
     distinctSuburbs,
     distinctRegions,
-    contactsByLandlord
+    contactsByLandlord,
+    propertyLists
    
   }
