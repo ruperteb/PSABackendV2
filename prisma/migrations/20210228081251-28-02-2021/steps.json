@@ -1,0 +1,26 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "Property",
+      "field": "locality",
+      "type": "String",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Property",
+      "field": "aerial",
+      "type": "String",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "PropertyList",
+      "field": "customTitle",
+      "type": "String",
+      "arity": "Optional"
+    }
+  ]
+}

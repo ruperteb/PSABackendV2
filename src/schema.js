@@ -129,6 +129,9 @@ buildingType:       String,
 province:           String,
 region:             String,
 notes:              String,
+
+locality:           String,
+aerial:             String,
 images:             [String]
 
 
@@ -187,6 +190,7 @@ mobileNo:          String,
 postPropertyList (
 
 enquiryName:       String,
+customTitle:       String,
 enquiryDate:       DateTime,
 
 propertyIdList: [Int]
@@ -198,6 +202,7 @@ updatePropertyList (
 propertyListId:  Int!,
 
 enquiryName:       String,
+customTitle:       String,
 enquiryDate:       DateTime,
 
 propertyIdList: [Int]
@@ -230,6 +235,9 @@ type Property {
   notes:              String
 
   premisesList:       [Premises]
+
+  aerial:             String
+  locality:           String
   images:             [String]
 
   contact: LandlordContact
@@ -323,6 +331,7 @@ type LandlordContact {
 type PropertyList {
   propertyListId:       Int!
   enquiryName:     String 
+  customTitle:      String
   enquiryDate:     DateTime
   
   properties: [Property]

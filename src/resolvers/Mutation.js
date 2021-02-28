@@ -94,6 +94,9 @@ async function updateProperty(parent, args, context, info) {
       province:           args.province,
       region:             args.region,
       notes:              args.notes,
+
+      locality:           args.locality,
+      aerial:             args.aerial,
       images:             args.images,
 
       contact: { connect: { contactId: contactId } },
@@ -496,6 +499,7 @@ return {propertyId: id}
   const newPropertyList = await context.prisma.propertyList.create({
     data: {
       enquiryName:       args.enquiryName,
+      customTitle:       args.customTitle,
       enquiryDate:       args.enquiryDate,
       properties:      {connect: propertyIdArray},
     }
@@ -527,6 +531,7 @@ async function updatePropertyList(parent, args, context, info) {
     where: {propertyListId: args.propertyListId},
     data: {
       enquiryName:       args.enquiryName,
+      customTitle:       args.customTitle,
       enquiryDate:       args.enquiryDate,
       properties:      {set: propertyIdArray},
     }
