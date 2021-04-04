@@ -5,6 +5,7 @@ const express = require('express');
 var cors = require('cors')
 const { ApolloServer } = require('apollo-server-express');
 const { PrismaClient } = require('@prisma/client')
+const verifyToken = require('./validate');
 const typeDefs = require('./schema')
 
 // 1
@@ -36,16 +37,16 @@ const prisma = new PrismaClient()
 // 2
 
 const resolvers = {
-    Query,
-    Mutation,
-    Premises,
-    Property,
-    Landlord,
-    LandlordContact,
-    DateTime,
-    PropertyList,
-    
-  }
+  Query,
+  Mutation,
+  Premises,
+  Property,
+  Landlord,
+  LandlordContact,
+  DateTime,
+  PropertyList,
+
+}
 
 // 3
 
@@ -67,25 +68,41 @@ const resolvers = {
   next();
 }); */
 
+console.log(process.env.AUTH0_DOMAIN)
+console.log(process.env.API_IDENTIFIER)
+
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   introspection: true,
   playground: true,
-  context: ({req}) => {
+  context: async ({ req }) => {
+    let isAuthenticated = false
+    try {
+      const authHeader = req.headers.authorization || ""
+      
+      if (authHeader) {
+       const token = authHeader.split(" ")[1]
+       console.log(token)
+        const payload = await verifyToken(token)
+        isAuthenticated = payload ? true : false
+      }
+    } catch (error) {
+      console.error("Not Authorised")
+    }
 
     /* const token = request.headers.authorization || '' */
     return {
       ...req,
       prisma,
-      token: req.headers.authorization
-      
-     
+      token: req.headers.authorization,
+      isAuthenticated
+
+
     }
   },
 })
-
 
 
 const corsOptions = {
@@ -110,10 +127,10 @@ const app = express();
 
 
 
-server.applyMiddleware({ app, cors: {credentials: true, origin: true},path:"/" });
+server.applyMiddleware({ app, cors: { credentials: true, origin: true }, path: "/" });
 
 const PORT = process.env.PORT || 4000;
- 
+
 app.listen({ port: PORT }, () =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );

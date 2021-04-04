@@ -1,3 +1,4 @@
+const { AuthenticationError } = require("apollo-server-errors")
 
 
   async function properties(parent, args, context, info) {
@@ -39,6 +40,9 @@
   }
 
   async function singleProperty(parent, args, context, info) {
+    if(context.isAuthenticated === false) {
+      throw new AuthenticationError("Not logged in")
+    }
     return context.prisma.property.findUnique({
       where: {
         propertyId: args.propertyId,
