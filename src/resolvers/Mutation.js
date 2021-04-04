@@ -473,11 +473,6 @@ module.exports = {
   updatePropertyList,
   deletePropertyList,
   
- /*  
-  deleteInvestor,
-  deleteContact,
-  updateInvestor,
-  setPrimaryContact, */
-  login,
-  signup,
+  /* login,
+  signup, */
 }
