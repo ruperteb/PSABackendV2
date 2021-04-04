@@ -2,6 +2,9 @@ const { AuthenticationError } = require("apollo-server-errors")
 
 
   async function properties(parent, args, context, info) {
+    if(context.isAuthenticated === false) {
+      throw new AuthenticationError("Not logged in")
+    }
     return context.prisma.property.findMany({
       orderBy: {
         propertyName: 'asc',
@@ -11,6 +14,9 @@ const { AuthenticationError } = require("apollo-server-errors")
   }
 
   async function landlords(parent, args, context, info) {
+    if(context.isAuthenticated === false) {
+      throw new AuthenticationError("Not logged in")
+    }
     return context.prisma.landlord.findMany({
       orderBy: {
         landlordName: 'asc',
@@ -20,6 +26,9 @@ const { AuthenticationError } = require("apollo-server-errors")
   }
 
   async function landlordContacts(parent, args, context, info) {
+    if(context.isAuthenticated === false) {
+      throw new AuthenticationError("Not logged in")
+    }
     return context.prisma.landlordContact.findMany({
       orderBy: {
         name: 'asc',
@@ -29,6 +38,9 @@ const { AuthenticationError } = require("apollo-server-errors")
   }
 
   async function contactsByLandlord(parent, args, context, info) {
+    if(context.isAuthenticated === false) {
+      throw new AuthenticationError("Not logged in")
+    }
     return context.prisma.landlordContact.findMany({
       where: {
         landlordName: {
@@ -52,6 +64,9 @@ const { AuthenticationError } = require("apollo-server-errors")
   }
 
   async function multiProperty(parent, args, context, info) {
+    if(context.isAuthenticated === false) {
+      throw new AuthenticationError("Not logged in")
+    }
     return context.prisma.property.findMany({
       where: {
         propertyId: { in: args.propertyIdList}
@@ -65,6 +80,9 @@ const { AuthenticationError } = require("apollo-server-errors")
 
 
   async function premisesList(parent, args, context, info) {
+    if(context.isAuthenticated === false) {
+      throw new AuthenticationError("Not logged in")
+    }
     return context.prisma.premises.findMany({
       orderBy: {
         floor: 'asc',
@@ -74,6 +92,9 @@ const { AuthenticationError } = require("apollo-server-errors")
   }
 
   async function distinctSuburbs(parent, args, context, info) {
+    if(context.isAuthenticated === false) {
+      throw new AuthenticationError("Not logged in")
+    }
 
   const distinctSuburbs = context.prisma.property.findMany({
       orderBy: {
@@ -90,6 +111,9 @@ const { AuthenticationError } = require("apollo-server-errors")
 }
 
 async function distinctRegions(parent, args, context, info) {
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
   const distinctRegions = context.prisma.property.findMany({
     orderBy: {
@@ -106,6 +130,9 @@ async function distinctRegions(parent, args, context, info) {
 }
 
 async function propertyLists(parent, args, context, info) {
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
   return context.prisma.propertyList.findMany({
     orderBy: {
       enquiryName: 'asc',

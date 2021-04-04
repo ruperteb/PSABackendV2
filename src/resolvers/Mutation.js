@@ -3,7 +3,9 @@ const jwt = require('jsonwebtoken')
 const { APP_SECRET, getUserId } = require('../utils')
 
 async function postProperty(parent, args, context, info) {
-  /* const userId = getUserId(context) */
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
   const contactId = args.contactId
 
@@ -26,54 +28,18 @@ async function postProperty(parent, args, context, info) {
 
       contact: { connect: { contactId: contactId } },
 
-      /* investorName: args.investorName,
-      commercial: args.commercial,
-      industrial: args.industrial,
-      residential: args.residential,
-      retail: args.retail,
-      hotel: args.hotel,
-      wc: args.wc,
-      gau: args.gau,
-      kzn: args.kzn,
-      allregions: args.allregions,
-      minInvest: args.minInvest,
-      maxInvest: args.maxInvest,
-      listed: args.listed,
-      unlisted: args.unlisted,
-      private: args.private,
-      bee: args.bee,
-      notes: args.notes, */
-
     }
   })
-  /*  context.pubsub.publish("NEW_LINK", newLink) */
-  /* console.log(newInvestor.id)
-
-  const newContact = await context.prisma.contact.create({
-
-
-    data: {
-      name: args.contactName,
-      position: args.contactPosition,
-      officeNo: args.contactOfficeNo,
-      mobileNo: args.contactMobileNo,
-      email: args.contactEmail,
-
-      investorName: { connect: { id: newInvestor.id } },
-    }
-  }) */
-  /*  context.pubsub.publish("NEW_LINK", newLink) */
-
-  /* return newContact */
-
-
+  
   return newProperty
 
 }
 
 async function updateProperty(parent, args, context, info) {
 
-  /* const userId = getUserId(context) */
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
   const contactId = args.contactId
 
@@ -107,104 +73,11 @@ async function updateProperty(parent, args, context, info) {
 
 }
 
-async function setPrimaryContact(parent, args, context, info) {
-  /* const userId = getUserId(context) */
-
-  const investor = await context.prisma.investor.findOne({
-    where: {
-      id: args.investorID,
-
-    },
-    select: {
-      id: true,
-      investorName: true,
-      commercial: true,
-      industrial: true,
-      residential: true,
-      retail: true,
-      hotel: true,
-      wc: true,
-      gau: true,
-      kzn: true,
-      allregions: true,
-      minInvest: true,
-      maxInvest: true,
-      listed: true,
-      unlisted: true,
-      private: true,
-      bee: true,
-      notes: true,
-      contacts: {
-        include: {
-          investorName: true,
-        },
-      },
-    },
-  })
-
-  console.log(investor)
-  var contactsArray = []
-  var selectedContact = investor.contacts.filter(t => {
-    if (t)
-      return (t.id === args.contactID)
-  })
-  var otherContacts = investor.contacts.filter(t => {
-    if (t)
-      return (t.id !== args.contactID)
-  })
-
-
-  contactsArray = [...selectedContact, ...otherContacts]
-  const contactsArrayCleaned = contactsArray.map(contact => {
-    let formattedContact = {
-      name: contact.name,
-      position: contact.position,
-      email: contact.email,
-      officeNo: contact.officeNo,
-      mobileNo: contact.mobileNo
-    }
-    return formattedContact
-
-  })
-  console.log(contactsArrayCleaned, "log")
-
-  console.log(investor)
-  const delArray = []
-  const delMap = await investor.contacts.map((contact, index) => {
-    console.log(contact.id)
-    delArray[index] = { id: contact.id }
-  })
-
-  console.log(delArray)
-  const contactDel = await context.prisma.investor.update({
-    where: { id: args.investorID },
-    data: {
-      contacts: {
-        delete: delArray,
-      },
-    },
-  })
-
-  
-
-  const updatedInvestor = await context.prisma.investor.update({
-    where: { id: args.investorID },
-    data: {
-
-     
-
-      contacts: {
-        create: contactsArrayCleaned
-      }
-
-    }
-  })
-
-  return updatedInvestor
-
-}
 
 async function deleteProperty(parent, args, context, info) {
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
   const property = await context.prisma.property.findUnique({
     where: {
       propertyId: args.propertyId,
@@ -221,7 +94,6 @@ async function deleteProperty(parent, args, context, info) {
     },
   })
 
-  console.log(property)
   const delArray = []
   const delMap = await property.premisesList.map((premises, index) => {
     console.log(premises.premisesId)
@@ -238,21 +110,19 @@ async function deleteProperty(parent, args, context, info) {
     },
   })
 
-  /* const contactDel = await context.prisma.contact.delete({
-    where: { investorID: args.investorId },
-  }) */
 
   const propertyDel = await context.prisma.property.delete({
     where: { propertyId: args.propertyId },
   })
 
 
-
-  /* const userId = getUserId(context) */
   return property
 }
 
 async function deleteLandlord(parent, args, context, info) {
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
   const landlord = await context.prisma.landlord.findUnique({
     where: {
       landlordId: args.landlordId,
@@ -286,32 +156,30 @@ async function deleteLandlord(parent, args, context, info) {
     },
   })
 
-  /* const contactDel = await context.prisma.contact.delete({
-    where: { investorID: args.investorId },
-  }) */
-
   const landlordDel = await context.prisma.landlord.delete({
     where: { landlordId: args.landlordId },
   })
 
-
-
-  /* const userId = getUserId(context) */
   return landlord
 }
 
 async function deleteLandlordContact(parent, args, context, info) {
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
   const contactDel = await context.prisma.landlordContact.delete({
     where: { contactId: args.contactId },
   })
-  /* const userId = getUserId(context) */
+  
   return contactDel
 }
 
 
 function postPremises(parent, args, context, info) {
-  /* const userId = getUserId(context) */
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
   const propertyId = args.propertyId
 
@@ -353,29 +221,28 @@ function postPremises(parent, args, context, info) {
       propertyName: { connect: { propertyId: propertyId } },
     }
   })
-  /*  context.pubsub.publish("NEW_LINK", newLink) */
+  
 
   return newPremises
 }
 
 async function deletePremises(parent, args, context, info) {
-
-  /*  const contact =  await context.prisma.contact.findOne({
-     where: {
-       id: args.ContactID
-     },
-   }).investorName() */
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
 
   const premisesDel = await context.prisma.premises.delete({
     where: { premisesId: args.premisesId },
   })
-  /* const userId = getUserId(context) */
+  
   return premisesDel
 }
 
 async function updatePremises(parent, args, context, info) {
-  /* const userId = getUserId(context) */
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
   const updatedPremises = await context.prisma.premises.update({
     where: { premisesId: args.premisesId },
@@ -419,7 +286,9 @@ async function updatePremises(parent, args, context, info) {
 }
 
 async function postLandlord(parent, args, context, info) {
-  /* const userId = getUserId(context) */
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
   const newLandlord = await context.prisma.landlord.create({
     data: {
@@ -430,7 +299,9 @@ async function postLandlord(parent, args, context, info) {
 }
 
 async function updateLandlord(parent, args, context, info) {
-  /* const userId = getUserId(context) */
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
   const updatedLandlord = await context.prisma.landlord.update({
     where: {landlordId: args.landlordId},
@@ -442,7 +313,9 @@ async function updateLandlord(parent, args, context, info) {
 }
 
 function postLandlordContact(parent, args, context, info) {
-  /* const userId = getUserId(context) */
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
   const landlordId = args.landlordId
 
@@ -459,13 +332,14 @@ function postLandlordContact(parent, args, context, info) {
       landlordName: { connect: { landlordId: landlordId } },
     }
   })
-  /*  context.pubsub.publish("NEW_LINK", newLink) */
 
   return newContact
 }
 
 async function updateLandlordContact(parent, args, context, info) {
-  /* const userId = getUserId(context) */
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
   const updatedLandlordContact = await context.prisma.landlordContact.update({
     where: {contactId: args.contactId},
@@ -480,16 +354,9 @@ async function updateLandlordContact(parent, args, context, info) {
 }
 
 async function postPropertyList(parent, args, context, info) {
-  /* const userId = getUserId(context) */
-
-  /* const selectedProperties = await context.prisma.property.findMany({
-    where: {
-      propertyId: { in: args.propertyIdList}
-    },
-    orderBy: {
-      propertyName: 'asc',
-    },
-  }) */
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
   const propertyIdArray = args.propertyIdList.map((id) => {
 return {propertyId: id}
@@ -508,16 +375,9 @@ return {propertyId: id}
 }
 
 async function updatePropertyList(parent, args, context, info) {
-  /* const userId = getUserId(context) */
-
-  /* const selectedProperties = await context.prisma.property.findMany({
-    where: {
-      propertyId: { in: args.propertyIdList}
-    },
-    orderBy: {
-      propertyName: 'asc',
-    },
-  }) */
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
   const propertyIdArray = args.propertyIdList.map((id) => {
     return {propertyId: id}
@@ -540,22 +400,26 @@ async function updatePropertyList(parent, args, context, info) {
 }
 
 async function deletePropertyList(parent, args, context, info) {
+  if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  }
 
   const propertyListDel = await context.prisma.propertyList.delete({
     where: { propertyListId: args.propertyListId },
   })
-  /* const userId = getUserId(context) */
+  
   return propertyListDel
 }
 
-async function login(parent, args, context, info) {
-  // 1
+/* async function login(parent, args, context, info) {
+  
+  
   const user = await context.prisma.user.findUnique({ where: { email: args.email } })
   if (!user) {
     throw new Error('No such user found')
   }
 
-  // 2
+  
   const valid = await bcrypt.compare(args.password, user.password)
   if (!valid) {
     throw new Error('Invalid password')
@@ -563,29 +427,29 @@ async function login(parent, args, context, info) {
 
   const token = jwt.sign({ userId: user.id }, APP_SECRET)
 
-  // 3
+  
   return {
     token,
     user,
   }
-}
+} */
 
-async function signup(parent, args, context, info) {
-  // 1
+/* async function signup(parent, args, context, info) {
+  
   const password = await bcrypt.hash(args.password, 10)
 
-  // 2
+  
   const user = await context.prisma.user.create({ data: { ...args, password } })
 
-  // 3
+  
   const token = jwt.sign({ userId: user.id }, APP_SECRET)
 
-  // 4
+  
   return {
     token,
     user,
   }
-}
+} */
 
 
 
