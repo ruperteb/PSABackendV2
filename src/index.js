@@ -43,7 +43,6 @@ const server = new ApolloServer({
       
       if (authHeader) {
        const token = authHeader.split(" ")[1]
-       console.log(token)
         const payload = await verifyToken(token)
         isAuthenticated = payload ? true : false
       }
