@@ -59,17 +59,26 @@ const startApolloServer = async () => {
     },
   });
 
-  const corsOptions = {
-    origin(origin, callback) {
-      callback(null, true);
-    },
+  /* const corsOptions = {
+    origin: ["http://localhost:3000/"],
+    credentials: true,
+  }; */
+
+  var corsOptions = {
+    origin: ["http://localhost:3000", "https://d2bnd9wi3qfdme.cloudfront.net"],
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     credentials: true,
   };
 
   var allowCrossDomain = function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Credentials", true);
     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization, Accept, X-Requested-With"
+    );
+    res.header("Allow", "GET,PUT,POST,DELETE,OPTIONS");
     next();
   };
 
