@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const express = require("express");
-/* var cors = require('cors') */
+var cors = require("cors");
 const { ApolloServer } = require("apollo-server-express");
 const { PrismaClient } = require("@prisma/client");
 const verifyToken = require("./validate");
@@ -59,13 +59,30 @@ const startApolloServer = async () => {
     },
   });
 
+  const corsOptions = {
+    origin(origin, callback) {
+      callback(null, true);
+    },
+    credentials: true,
+  };
+
+  var allowCrossDomain = function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    next();
+  };
+
   const app = express();
+
+  app.use(cors(corsOptions));
+  app.use(allowCrossDomain);
 
   await server.start();
 
   server.applyMiddleware({
     app,
-    cors: { credentials: true, origin: true },
+    cors: /* { credentials: true, origin: true } */ false,
     path: "/",
   });
 
