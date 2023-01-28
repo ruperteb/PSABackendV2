@@ -1,10 +1,14 @@
-function contactsList (parent, args, context) {
-    return context.prisma.landlord.findUnique({ where: { landlordId: parent.landlordId } }).contactsList()
-  }
+const { AuthenticationError } = require("apollo-server-errors");
 
-  
-
-  module.exports = {
-    contactsList,
-    
+function contactsList(parent, args, context) {
+  if (context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in");
   }
+  return context.prisma.landlord
+    .findUnique({ where: { landlordId: parent.landlordId } })
+    .contactsList();
+}
+
+module.exports = {
+  contactsList,
+};

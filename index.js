@@ -5,7 +5,8 @@ const express = require("express");
 var cors = require("cors");
 const { ApolloServer } = require("apollo-server-express");
 const { PrismaClient } = require("@prisma/client");
-const verifyToken = require("./validate");
+/* const verifyToken = require("./validate"); */
+const { verifyToken } = require("./utils");
 const typeDefs = require("./schema");
 
 const Query = require("./resolvers/Query");
@@ -40,11 +41,15 @@ const startApolloServer = async () => {
       let isAuthenticated = false;
       try {
         const authHeader = req.headers.authorization || "";
-
-        if (authHeader) {
+        console.log("auth header", authHeader);
+        /* if (authHeader) {
           const token = authHeader.split(" ")[1];
           const payload = await verifyToken(token);
           isAuthenticated = payload ? true : false;
+        } */
+        let verified = verifyToken(authHeader);
+        if (verified) {
+          isAuthenticated = true;
         }
       } catch (error) {
         console.error("Not Authorised");
