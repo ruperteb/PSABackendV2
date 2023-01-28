@@ -70,7 +70,12 @@ const startApolloServer = async () => {
   }; */
 
   var corsOptions = {
-    origin: ["http://localhost:3000", "https://d2bnd9wi3qfdme.cloudfront.net"],
+    origin: [
+      "http://localhost:3000",
+      "https://d2bnd9wi3qfdme.cloudfront.net",
+      "http://d2bnd9wi3qfdme.cloudfront.net",
+      "http://propertystockapp.s3-website-eu-west-1.amazonaws.com",
+    ],
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     credentials: true,
   };
